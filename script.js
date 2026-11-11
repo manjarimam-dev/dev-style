@@ -1,10 +1,8 @@
 const componentsData = {
 
     headers: {
-        html: `
-            <header class="w-full max-w-full bg-slate-800 border-b border-blue-900/60 shadow-lg">
+        html: `     <header class="w-full max-w-full bg-slate-800 border-b border-blue-900/60 shadow-lg">
                 <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between flex-wrap gap-4">
-
                     <h1 class="text-2xl font-bold text-white">
                         DevStyle<span class="text-blue-400">.</span>
                     </h1>
@@ -19,15 +17,12 @@ const componentsData = {
                     <button class="px-5 py-2.5 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition">
                         Get Started
                     </button>
-
                 </nav>
             </header>   `
     },
 
     buttons: {
-        html: `
-            <div class="flex flex-wrap items-center justify-center gap-4">
-
+        html: `     <div class="flex flex-wrap items-center justify-center gap-4">
                 <button class="px-5 py-2.5 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 shadow-lg shadow-blue-500/20 transition-all duration-200">
                     Primary Button
                 </button>
@@ -53,9 +48,7 @@ const componentsData = {
     },
 
     cards: {
-        html: `
-            <div class="max-w-sm bg-slate-800 border border-blue-900/60 rounded-xl shadow-xl overflow-hidden">
-
+        html: `     <div class="max-w-sm bg-slate-800 border border-blue-900/60 rounded-xl shadow-xl overflow-hidden">
                 <img
                     src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600"
                     class="w-full h-48 object-cover"
@@ -94,9 +87,7 @@ const componentsData = {
     },
 
     inputs: {
-        html: `
-            <div class="w-full max-w-sm space-y-5">
-
+        html: `     <div class="w-full max-w-sm space-y-5">
                 <div class="space-y-2">
                     <label class="block text-sm font-medium text-slate-300">
                         Full Name
@@ -142,9 +133,7 @@ const componentsData = {
     },
 
     lists: {
-        html: `
-            <div class="w-full max-w-sm bg-slate-800 border border-blue-900/60 rounded-xl p-5 shadow-lg">
-
+        html: `     <div class="w-full max-w-sm bg-slate-800 border border-blue-900/60 rounded-xl p-5 shadow-lg">
                 <h2 class="text-lg font-bold text-white mb-4">
                     Project Tasks
                 </h2>
@@ -204,22 +193,32 @@ let leftbtn = document.querySelector("#leftbtn");
 let leftcard = document.querySelector("#card");
 let leftinpt = document.querySelector("#leftinpt");
 let leftlist = document.querySelector("#leftlist");
+let codePreview = document.querySelector("#codepreview");
+
+
 
 const leftsidecomponent = () => {
     leftheader.addEventListener("click", () => {
         preview.innerHTML = componentsData.headers.html;
+        codePreview.textContent = componentsData.headers.html
+        codePreview.style.color = "#D4D4D4";
+
     })
     leftbtn.addEventListener("click", () => {
         preview.innerHTML = componentsData.buttons.html;
+        codePreview.textContent = componentsData.buttons.html;
     })
     leftcard.addEventListener("click", () => {
         preview.innerHTML = componentsData.cards.html;
+        codePreview.textContent = componentsData.cards.html;
     })
     leftinpt.addEventListener("click", () => {
         preview.innerHTML = componentsData.inputs.html;
+        codePreview.textContent = componentsData.inputs.html;
     })
     leftlist.addEventListener("click", () => {
         preview.innerHTML = componentsData.lists.html;
+        codePreview.textContent = componentsData.lists.html;
     })
 }
 leftsidecomponent();
@@ -244,3 +243,4 @@ const leftSidebtnActiveStatus = () => {
 };
 leftSidebtnActiveStatus();
 preview.innerHTML = componentsData.headers.html;
+codePreview.textContent = componentsData.headers.html;
