@@ -1,10 +1,9 @@
 const componentsData = {
-
     headers: {
         html: `     <header class="w-full max-w-full bg-slate-800 border-b border-blue-900/60 shadow-lg">
                 <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between flex-wrap gap-4">
                     <h1 class="text-2xl font-bold text-white">
-                        DevStyle<span class="text-blue-400">.</span>
+                        DevStyle <span class="text-blue-400">.</span>
                     </h1>
 
                     <div class="flex flex-wrap items-center gap-6">
@@ -20,7 +19,6 @@ const componentsData = {
                 </nav>
             </header>   `
     },
-
     buttons: {
         html: `     <div class="flex flex-wrap items-center justify-center gap-4">
                 <button class="px-5 py-2.5 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 shadow-lg shadow-blue-500/20 transition-all duration-200">
@@ -46,7 +44,6 @@ const componentsData = {
             </div>
         `
     },
-
     cards: {
         html: `     <div class="max-w-sm bg-slate-800 border border-blue-900/60 rounded-xl shadow-xl overflow-hidden">
                 <img
@@ -85,7 +82,6 @@ const componentsData = {
             </div>
         `
     },
-
     inputs: {
         html: `     <div class="w-full max-w-sm space-y-5">
                 <div class="space-y-2">
@@ -131,7 +127,6 @@ const componentsData = {
             </div>
         `
     },
-
     lists: {
         html: `     <div class="w-full max-w-sm bg-slate-800 border border-blue-900/60 rounded-xl p-5 shadow-lg">
                 <h2 class="text-lg font-bold text-white mb-4">
@@ -181,7 +176,6 @@ const componentsData = {
             </div>
         `
     }
-
 };
 
 
@@ -194,10 +188,11 @@ let leftcard = document.querySelector("#card");
 let leftinpt = document.querySelector("#leftinpt");
 let leftlist = document.querySelector("#leftlist");
 let codePreview = document.querySelector("#codepreview");
+let bgColorInput = document.querySelector("#bgColorInput");
+let PickcolorSelector = document.querySelector("#colorselector");
 
-
-
-const leftsidecomponent = () => {
+// left component clicking Code --!
+const leftSideComponent = () => {
     leftheader.addEventListener("click", () => {
         preview.innerHTML = componentsData.headers.html;
         codePreview.textContent = componentsData.headers.html
@@ -220,9 +215,11 @@ const leftsidecomponent = () => {
         preview.innerHTML = componentsData.lists.html;
         codePreview.textContent = componentsData.lists.html;
     })
-}
-leftsidecomponent();
 
+}
+leftSideComponent();
+
+// left component active btn styling Code --!
 const leftSidebtnActiveStatus = () => {
     leftAllbtn.forEach((button) => {
         button.addEventListener("click", (event) => {
@@ -241,6 +238,26 @@ const leftSidebtnActiveStatus = () => {
         })
     });
 };
+
+// right side customizer --!
+const rightSideCustomizer = () => {
+    PickcolorSelector.addEventListener("input", (event) => {
+        const PickColorValue = event.target.value;
+        bgColorInput.value = PickColorValue;
+        preview.querySelector("header").style.backgroundColor = PickColorValue;
+        codePreview.textContent = preview.innerHTML;
+    })
+    bgColorInput.addEventListener("input", (event) => {
+        const bgColorInputValue = event.target.value;
+        preview.innerHTML = componentsData.headers.html;
+        preview.querySelector("header").style.backgroundColor = bgColorInputValue;
+        codePreview.textContent = preview.innerHTML;
+    })
+
+}
+rightSideCustomizer();
+
 leftSidebtnActiveStatus();
 preview.innerHTML = componentsData.headers.html;
+console.log(preview);
 codePreview.textContent = componentsData.headers.html;

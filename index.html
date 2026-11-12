@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>DevStyle | UI Playground & Code Generator</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style type="text/tailwindcss">
@@ -211,9 +211,17 @@
                 <div class="flex flex-col gap-4">
                     <!-- Background Color Input -->
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-xs font-medium text-gray-300">Background Color</label>
-                        <input type="text" id="bgColorInput" placeholder="HEX or Tailwind class"
+                        <label class="text-lg font-medium tracking-tight">Background Color</label>
+                        <div class="flex gap-2 items-center">
+                            <input 
+                            type="text" 
+                            id="bgColorInput" 
+                            placeholder="HEX or Tailwind class"
+                            value=""
                             class="bg-[#0d1117] border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-slate-700">
+
+                            <input id="colorselector" class="appearance-none border-none outline-none rounded-3xl w-10 h-10 p-0 cursor-pointer bg-transparent" type="color">
+                        </div>
                     </div>
 
                     <!-- Padding Slider -->
@@ -223,12 +231,12 @@
                             <span id="paddingValue">12px</span>
                         </div>
                         <input type="range" id="paddingSlider" min="0" max="32" value="12"
-                            class="w-full h-2 bg-[#0d1117] rounded-lg appearance-none cursor-pointer accent-white">
+                            class="w-full bg-[#0d1117] rounded-lg appearance-none cursor-pointer accent-white">
                     </div>
 
                     <!-- Text Input -->
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-xs font-medium text-gray-300">Button Text</label>
+                        <label class="text-lg tracking-tight font-medium">Button Text</label>
                         <input type="text" id="textInput" value="Get Started"
                             class="bg-[#0d1117] border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-slate-700">
                     </div>
@@ -240,7 +248,7 @@
                             <span id="borderValue">2px</span>
                         </div>
                         <input type="range" id="borderSlider" min="0" max="8" value="2"
-                            class="w-full h-2 bg-[#0d1117] rounded-lg appearance-none cursor-pointer accent-white">
+                            class="w-full bg-[#0d1117] rounded-lg appearance-none cursor-pointer accent-white">
                     </div>
 
                     <!-- Rounded Corners Checkbox -->
