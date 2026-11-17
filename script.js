@@ -1,8 +1,8 @@
 const componentsData = {
     headers: {
-        html: `     <header class="w-full max-w-full bg-slate-800 border-b border-blue-900/60 shadow-lg">
+        html: `<header class="w-full max-w-full bg-slate-800 border-b border-blue-900/60 shadow-lg">
                 <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between flex-wrap gap-4">
-                    <h1 class="text-2xl font-bold text-white">
+                    <h1 target="" class="text-2xl font-bold text-white">
                         DevStyle <span class="text-blue-400">.</span>
                     </h1>
 
@@ -17,37 +17,21 @@ const componentsData = {
                         Get Started
                     </button>
                 </nav>
-            </header>   `
+            </header>   `,
+        target: "header",
+        textTarget: "h1"
     },
     buttons: {
-        html: `     <div class="flex flex-wrap items-center justify-center gap-4">
-                <button class="px-5 py-2.5 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 shadow-lg shadow-blue-500/20 transition-all duration-200">
-                    Primary Button
-                </button>
-
-                <button class="px-5 py-2.5 bg-slate-700 text-white font-semibold rounded-lg border border-slate-600 hover:bg-slate-600 transition-all duration-200">
-                    Secondary Button
-                </button>
-
-                <button class="px-5 py-2.5 bg-transparent text-blue-400 font-semibold rounded-lg border border-blue-400 hover:bg-blue-400/10 transition-all duration-200">
-                    Outline Button
-                </button>
-
-                <button class="px-5 py-2.5 bg-red-500/10 text-red-400 font-semibold rounded-lg border border-red-500/30 hover:bg-red-500/20 transition-all duration-200">
-                    Danger Button
-                </button>
-
-                <button class="px-5 py-2.5 bg-transparent text-slate-300 font-semibold rounded-lg hover:bg-slate-700 transition-all duration-200">
-                    Ghost Button
-                </button>
-
-            </div>
-        `
+        html: `<button class="px-9 py-5 bg-blue-500 text-white text-xl font-semibold rounded-lg             hover:bg-blue-600 shadow-lg shadow-blue-500/20 transition-all duration-200 cursor-pointer">
+        Get Started
+        </button>`,
+        target: "button",
+        textTarget: "button"
     },
     cards: {
-        html: `     <div class="max-w-sm bg-slate-800 border border-blue-900/60 rounded-xl shadow-xl overflow-hidden">
+        html: `<div class="max-w-sm bg-slate-800 border border-blue-900/60       rounded-xl shadow-xl overflow-hidden">
                 <img
-                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600"
+                    src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=85"
                     class="w-full h-48 object-cover"
                     alt="Technology"
                 >
@@ -80,7 +64,8 @@ const componentsData = {
 
                 </div>
             </div>
-        `
+        `,
+        target: "div"
     },
     inputs: {
         html: `     <div class="w-full max-w-sm space-y-5">
@@ -125,7 +110,8 @@ const componentsData = {
                 </button>
 
             </div>
-        `
+        `,
+        target: "button"
     },
     lists: {
         html: `     <div class="w-full max-w-sm bg-slate-800 border border-blue-900/60 rounded-xl p-5 shadow-lg">
@@ -174,10 +160,12 @@ const componentsData = {
                 </ul>
 
             </div>
-        `
-    }
+        `,
+        target: "div"
+    },
 };
 
+let activeKey = "headers";
 
 let padding = document.querySelector("#paddingSlider");
 let preview = document.querySelector("#preview-area");
@@ -190,34 +178,44 @@ let leftlist = document.querySelector("#leftlist");
 let codePreview = document.querySelector("#codepreview");
 let bgColorInput = document.querySelector("#bgColorInput");
 let PickcolorSelector = document.querySelector("#colorselector");
+let copyBtn = document.querySelector("#copybtn");
+let copyspanid = document.querySelector("#copyspanid");
+
+
 
 // left component clicking Code --!
 const leftSideComponent = () => {
     leftheader.addEventListener("click", () => {
         preview.innerHTML = componentsData.headers.html;
         codePreview.textContent = componentsData.headers.html
-        codePreview.style.color = "#D4D4D4";
-
+        activeKey = "headers"
     })
     leftbtn.addEventListener("click", () => {
         preview.innerHTML = componentsData.buttons.html;
         codePreview.textContent = componentsData.buttons.html;
+        activeKey = "buttons"
     })
     leftcard.addEventListener("click", () => {
         preview.innerHTML = componentsData.cards.html;
         codePreview.textContent = componentsData.cards.html;
+        activeKey = "cards"
     })
     leftinpt.addEventListener("click", () => {
         preview.innerHTML = componentsData.inputs.html;
         codePreview.textContent = componentsData.inputs.html;
+        activeKey = "inputs"
     })
     leftlist.addEventListener("click", () => {
         preview.innerHTML = componentsData.lists.html;
         codePreview.textContent = componentsData.lists.html;
+        activeKey = "lists"
     })
-
+    console.log(activeKey);
 }
 leftSideComponent();
+
+
+
 
 // left component active btn styling Code --!
 const leftSidebtnActiveStatus = () => {
@@ -238,26 +236,52 @@ const leftSidebtnActiveStatus = () => {
         })
     });
 };
+leftSidebtnActiveStatus();
+
+
+
 
 // right side customizer --!
 const rightSideCustomizer = () => {
+
+    // backGroundColor live customizer code ---!
     PickcolorSelector.addEventListener("input", (event) => {
         const PickColorValue = event.target.value;
         bgColorInput.value = PickColorValue;
-        preview.querySelector("header").style.backgroundColor = PickColorValue;
+        preview.querySelector(componentsData[activeKey].target).style.backgroundColor = PickColorValue;
+
+
+
         codePreview.textContent = preview.innerHTML;
+        console.log(preview);
+
     })
     bgColorInput.addEventListener("input", (event) => {
         const bgColorInputValue = event.target.value;
-        preview.innerHTML = componentsData.headers.html;
-        preview.querySelector("header").style.backgroundColor = bgColorInputValue;
+        preview.querySelector(componentsData[activeKey].target).style.backgroundColor = bgColorInputValue;
         codePreview.textContent = preview.innerHTML;
+        console.log(preview);
     })
-
 }
 rightSideCustomizer();
 
-leftSidebtnActiveStatus();
+
+
+
+// copy codetext clipboard Code here  --!
+const copyCode = () => {
+    copyBtn.addEventListener("click", () => {
+        copyspanid.textContent = "Copied";
+        navigator.clipboard.writeText(codePreview.textContent);
+        setTimeout(() => {
+            copyspanid.textContent = "Copy";
+        }, 2000);
+    })
+}
+copyCode();
+
+
+
+
 preview.innerHTML = componentsData.headers.html;
-console.log(preview);
 codePreview.textContent = componentsData.headers.html;
