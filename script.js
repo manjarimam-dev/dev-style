@@ -2,7 +2,7 @@ const componentsData = {
     headers: {
         html: `<header class="w-full max-w-full bg-slate-800 border-b border-blue-900/60 shadow-lg">
                 <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between flex-wrap gap-4">
-                    <h1 target="" class="text-2xl font-bold text-white">
+                    <h1 class="text-2xl font-bold text-white">
                         DevStyle <span class="text-blue-400">.</span>
                     </h1>
 
@@ -19,17 +19,21 @@ const componentsData = {
                 </nav>
             </header>   `,
         target: "header",
-        textTarget: "h1"
+        textTarget: "h1",
+        paddingTarget: "header",
+        borderTarget: "header"
     },
     buttons: {
-        html: `<button class="px-9 py-5 bg-blue-500 text-white text-xl font-semibold rounded-lg             hover:bg-blue-600 shadow-lg shadow-blue-500/20 transition-all duration-200 cursor-pointer">
+        html: `<button class="px-9 py-5 bg-blue-500 text-white text-xl font-semibold border-1 border-black rounded-lg             hover:bg-blue-600 shadow-lg shadow-blue-500/20 transition-all duration-200 cursor-pointer">
         Get Started
         </button>`,
         target: "button",
-        textTarget: "button"
+        textTarget: "button",
+        paddingTarget: "button",
+        borderTarget: "button"
     },
     cards: {
-        html: `<div class="max-w-sm bg-slate-800 border border-blue-900/60       rounded-xl shadow-xl overflow-hidden">
+        html: `<main class="max-w-sm bg-slate-800 border border-blue-900/60       rounded-xl shadow-xl overflow-hidden">
                 <img
                     src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=85"
                     class="w-full h-48 object-cover"
@@ -63,9 +67,12 @@ const componentsData = {
                     </div>
 
                 </div>
-            </div>
+            </main>
         `,
-        target: "div"
+        target: "main",
+        textTarget: "h2",
+        paddingTarget: "main",
+        borderTarget: "main"
     },
     inputs: {
         html: `     <div class="w-full max-w-sm space-y-5">
@@ -111,7 +118,10 @@ const componentsData = {
 
             </div>
         `,
-        target: "button"
+        target: "button",
+        textTarget: "button",
+        paddingTarget: "button",
+        borderTarget: "button"
     },
     lists: {
         html: `     <div class="w-full max-w-sm bg-slate-800 border border-blue-900/60 rounded-xl p-5 shadow-lg">
@@ -161,11 +171,16 @@ const componentsData = {
 
             </div>
         `,
-        target: "div"
+        target: "div",
+        textTarget: "h2",
+        paddingTarget: "div",
+        borderTarget: "div"
     },
 };
 
+// global key for state management leftSidebaar ---!
 let activeKey = "headers";
+
 
 let padding = document.querySelector("#paddingSlider");
 let preview = document.querySelector("#preview-area");
@@ -180,7 +195,11 @@ let bgColorInput = document.querySelector("#bgColorInput");
 let PickcolorSelector = document.querySelector("#colorselector");
 let copyBtn = document.querySelector("#copybtn");
 let copyspanid = document.querySelector("#copyspanid");
-
+let rightinputtext = document.querySelector("#textInput");
+let rightpadingslider = document.querySelector("#paddingSlider");
+let rightpadingvalue = document.querySelector("#paddingValue");
+let rightbordervalue = document.querySelector("#borderValue");
+let rightborderslider = document.querySelector("#borderSlider");
 
 
 // left component clicking Code --!
@@ -244,23 +263,68 @@ leftSidebtnActiveStatus();
 // right side customizer --!
 const rightSideCustomizer = () => {
 
-    // backGroundColor live customizer code ---!
+    // Right side backGroundColor live customizer code ---!
+
+    // Right side picker color code --!
     PickcolorSelector.addEventListener("input", (event) => {
         const PickColorValue = event.target.value;
-        bgColorInput.value = PickColorValue;
-        preview.querySelector(componentsData[activeKey].target).style.backgroundColor = PickColorValue;
 
-
-
+        let bgfilter = preview.querySelector(componentsData[activeKey].target);
+        let bgclass = bgfilter.className.split(" ")
+        let cleanClass = bgclass.filter((e) => {
+            return !e.startsWith("bg-")
+        });
+        cleanClass.push(`bg-[${PickColorValue}]`);
+        bgfilter.className = cleanClass.join(" ")
         codePreview.textContent = preview.innerHTML;
-        console.log(preview);
 
-    })
+    });
+
+    // Right side color input box code --!
     bgColorInput.addEventListener("input", (event) => {
         const bgColorInputValue = event.target.value;
-        preview.querySelector(componentsData[activeKey].target).style.backgroundColor = bgColorInputValue;
+
+        let bgfilter = preview.querySelector(componentsData[activeKey].target);
+        let bgclass = bgfilter.className.split(" ")
+        let cleanClass = bgclass.filter((e) => {
+            return !e.startsWith("bg-")
+        });
+        cleanClass.push(`bg-[${bgColorInputValue}]`);
+        bgfilter.className = cleanClass.join(" ")
         codePreview.textContent = preview.innerHTML;
-        console.log(preview);
+    });
+
+    // Right side Input Text code --!
+    rightinputtext.addEventListener("input", (event) => {
+        const inputtextvalue = event.target.value;
+        preview.querySelector(componentsData[activeKey].textTarget).textContent = inputtextvalue;
+        codePreview.textContent = preview.innerHTML;
+    })
+
+    // Right side padding values ---!
+    rightpadingslider.addEventListener("input", (event) => {
+        const rightpadingvar = event.target.value;
+        rightpadingvalue.textContent = rightpadingvar + "px";
+        let padvar = preview.querySelector(componentsData[activeKey].paddingTarget);
+        let padvarclass = padvar.className.split(" ");
+        let padvarfilter = padvarclass.filter((e) => !e.startsWith("px-") && !e.startsWith("py-") && !e.startsWith("p-"));
+        padvarfilter.push(`p-[${rightpadingvar + "px"}]`);
+        padvar.className = padvarfilter.join(" ")
+        codePreview.textContent = preview.innerHTML;
+    });
+
+    // Right side border values
+    rightborderslider.addEventListener("input", (event) => {
+        const rightbordervariable = event.target.value;
+        rightbordervalue.textContent = rightbordervariable + "px";
+        let bordervar = preview.querySelector(componentsData[activeKey].borderTarget)
+        let bordervarclass = bordervar.className.split(" ");
+        let bordervarfilter = bordervarclass.filter((e) => {
+            return !e.startsWith("border-");
+        });
+        bordervarfilter.push(`border-[${rightbordervariable + "px"}]`);
+        bordervar.className = bordervarfilter.join(" ");
+        codePreview.textContent = preview.innerHTML;
     })
 }
 rightSideCustomizer();
